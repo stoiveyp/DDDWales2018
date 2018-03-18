@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Alexa.NET;
@@ -5,6 +7,9 @@ using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Amazon.Lambda.Core;
+using Amazon.S3;
+using Amazon.S3.Model;
+using BoredomInc;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
@@ -28,9 +33,10 @@ namespace AlexaSkill
                         return ResponseBuilder.Tell("Okay");
                     }
 
-                    if (HandleIntent(input, intent.Intent, out SkillResponse response))
+                    var intentResponse = await HandleIntent(input, intent.Intent);
+                    if (intentResponse != null)
                     {
-                        return response;
+                        return intentResponse;
                     }
                     break;
             }
@@ -44,29 +50,96 @@ namespace AlexaSkill
 
 
 
-
-
-
-        private bool HandleIntent(SkillRequest request, Intent intent, out SkillResponse skillResponse)
+        private async Task<SkillResponse> HandleIntent(SkillRequest request, Intent intent)
         {
-            skillResponse = null;
             switch (intent.Name)
             {
-                case "NewGame":
-                    skillResponse = ResponseBuilder.Tell("Old News");
-                    return true;
                 case "StartGame":
-                    if (intent.Slots.Any(s => string.IsNullOrWhiteSpace(s.Value.Value)))
+                    var response = ValidateNewGame(request, intent);
+                    if (response != null)
                     {
-                        skillResponse = ResponseBuilder.DialogDelegate(request.Session);
-                        return true;
+                        return response;
                     }
 
-                    skillResponse = ResponseBuilder.Tell("Game stuff coming soon!");
-                    return true;
-
+                    await CreateGame(request.Session.User.UserId,intent);
+                    return ResponseBuilder.Tell(Responses.GameCreated);
             }
-            return false;
+
+            return null;
+        }
+
+
+        private SkillResponse ValidateNewGame(SkillRequest request, Intent intent)
+        {
+            var opponent = intent.Slots.First(s => s.Key == SlotNames.Opponent);
+            if (!string.IsNullOrWhiteSpace(opponent.Value.Value) || !ValidateName(opponent.Value.Value))
+            {
+                return ResponseBuilder.DialogElicitSlot(new PlainTextOutputSpeech
+                {
+                    Text = "I didn't recognise your opponent's name, could you repeat that?"
+                }, SlotNames.Opponent, request.Session, intent);
+            }
+
+            if (intent.Slots.Any(s => string.IsNullOrWhiteSpace(s.Value.Value)))
+            {
+                return ResponseBuilder.DialogDelegate(request.Session);
+            }
+
+            return null;
+        }
+
+
+        private async Task<string> CreateGame(string challenger, Intent intent)
+        {
+            var game = new Game
+            {
+                Player1 = new Moves
+                {
+                    UserId = challenger,
+                    MoveInformation = new List<Move>
+                    {
+                        ParseMove(intent.Slots[SlotNames.MoveOne].Value),
+                        ParseMove(intent.Slots[SlotNames.MoveTwo].Value),
+                        ParseMove(intent.Slots[SlotNames.MoveThree].Value)
+                    }
+                }
+            };
+
+            var opponent = GetOpponentUserId(challenger, intent);
+            var s3 = new AmazonS3Client();
+
+            var putRequest = new PutObjectRequest
+            {
+                BucketName = Environment.GetEnvironmentVariable("bucket"),
+                Key = challenger + "_" + opponent
+            };
+            await s3.PutObjectAsync(putRequest);
+            return opponent;
+        }
+
+        private string GetOpponentUserId(string challenger, Intent intent)
+        {
+            var opponentName = intent.Slots[SlotNames.Opponent].Value;
+            if (opponentName == "myself")
+            {
+                return challenger;
+            }
+            throw new InvalidOperationException("Unable to find opponent " + opponentName);
+        }
+
+        private Move ParseMove(string value)
+        {
+            if (Enum.TryParse(value, out Move move))
+            {
+                return move;
+            }
+
+            throw new InvalidOperationException("Unknown move type " + value);
+        }
+
+        private bool ValidateName(string opponentName)
+        {
+            return opponentName.ToLower() == "myself";
         }
     }
 }
