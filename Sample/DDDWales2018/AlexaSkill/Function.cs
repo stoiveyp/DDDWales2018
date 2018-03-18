@@ -10,6 +10,8 @@ using Amazon.Lambda.Core;
 using Amazon.S3;
 using Amazon.S3.Model;
 using BoredomInc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
@@ -52,20 +54,39 @@ namespace AlexaSkill
 
         private async Task<SkillResponse> HandleIntent(SkillRequest request, Intent intent)
         {
+            var userId = request.Session.User.UserId;
             switch (intent.Name)
             {
-                case "StartGame":
+                case IntentNames.StartGame:
                     var response = ValidateNewGame(request, intent);
                     if (response != null)
                     {
                         return response;
                     }
 
-                    await CreateGame(request.Session.User.UserId,intent);
+                    await CreateGame(userId,intent);
                     return ResponseBuilder.Tell(Responses.GameCreated);
+                case IntentNames.CheckChallenges:
+                    var challenges = await GetChallenges(userId);
+                    if (challenges.Count > 0)
+                    {
+                        return ResponseBuilder.Ask(Responses.PendingChallenges(challenges.Count),null);
+                    }
+
+                    return ResponseBuilder.Tell(Responses.NoChallenges);
             }
 
             return null;
+        }
+
+        private async Task<List<string>> GetChallenges(string userId)
+        {
+            var s3 = new AmazonS3Client();
+            var objects = await s3.ListObjectsAsync(
+                System.Environment.GetEnvironmentVariable("bucket"),
+                $"challenge_{userId}"
+                );
+            return objects.S3Objects.Select(o => o.Key).ToList();
         }
 
 
@@ -111,7 +132,8 @@ namespace AlexaSkill
             var putRequest = new PutObjectRequest
             {
                 BucketName = Environment.GetEnvironmentVariable("bucket"),
-                Key = challenger + "_" + opponent
+                Key = $"challenge_{opponent}_{challenger}",
+                ContentBody = JObject.FromObject(game).ToString(Formatting.Indented)
             };
             await s3.PutObjectAsync(putRequest);
             return opponent;
