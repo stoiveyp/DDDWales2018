@@ -10,5 +10,10 @@ namespace AlexaSkill
         public const string ChallengeLength = "You have {0} challenges available right now.";
 
         public static string PendingChallenges(int length) => string.Format(ChallengeLength, length);
+
+        public static IOutputSpeech NextChallenger(string nextOpponent)
+        {
+            return new PlainTextOutputSpeech{Text=$"Your next challenger is {nextOpponent}, do you accept the challenge?"};
+        }
     }
 }
