@@ -54,10 +54,10 @@ namespace AlexaSkill
 
         private static SkillResponse VoiceResults(Results results)
         {
-            var sb = new StringBuilder("Here are the results");
+            var sb = new StringBuilder("Here are the results.  ");
             foreach (var result in results.ResultInformation)
             {
-                sb.Append($"Your {result.You} {result.Description} their {result.Them}.");
+                sb.Append($"Your {result.You} {result.Description} their {result.Them}.  ");
             }
 
             if (!results.OverallWin.HasValue)
@@ -81,12 +81,15 @@ namespace AlexaSkill
             var result = await s3.GetObjectAsync(bucket, nextChallenge);
             var game = new JsonSerializer().Deserialize<Game>(result.ResponseStream);
 
-            game.Player2.UserId = userId;
-            game.Player2.MoveInformation = new List<Move>
+            game.Player2 = new Moves
             {
-                ParseMove(intent.Slots[SlotNames.MoveOne].Value),
-                ParseMove(intent.Slots[SlotNames.MoveTwo].Value),
-                ParseMove(intent.Slots[SlotNames.MoveThree].Value)
+                UserId = userId,
+                MoveInformation = new List<Move>
+                {
+                    ParseMove(intent.Slots[SlotNames.MoveOne].Value),
+                    ParseMove(intent.Slots[SlotNames.MoveTwo].Value),
+                    ParseMove(intent.Slots[SlotNames.MoveThree].Value)
+                }
             };
 
             await s3.DeleteObjectAsync(bucket, nextChallenge);
