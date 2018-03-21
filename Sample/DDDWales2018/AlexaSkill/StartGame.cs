@@ -26,7 +26,8 @@ namespace AlexaSkill
             }
 
             var opponentUserId = await CreateGame(userId, intent);
-            await SendMessageTo(opponentUserId, "yourself");
+            var message = SendMessageTo(opponentUserId, "yourself");
+            await Task.WhenAll(partial, message);
             return ResponseBuilder.Tell(Responses.GameCreated);
         }
 

@@ -38,14 +38,14 @@ namespace AlexaSkill
                     }
                     break;
                 case MessageReceivedRequest message:
-                    SendNotification(input,message);
+                    await SendNotification(input,message);
                     return ResponseBuilder.Empty();
             }
 
             return ResponseBuilder.Ask("Sorry, didn't understand a word. Please try that again", null);
         }
 
-        private void SendNotification(SkillRequest request, MessageReceivedRequest message)
+        private Task SendNotification(SkillRequest request, MessageReceivedRequest message)
         {
 
             var token = request.Context.System.ApiAccessToken;
@@ -69,7 +69,7 @@ namespace AlexaSkill
             var reference = Guid.NewGuid().ToString("N");
             var expiry = DateTime.Now.AddSeconds(30);
 
-            notification.Create(display, spoken, reference, expiry);
+            return notification.Create(display, spoken, reference, expiry);
         }
 
         private DisplayContent DisplayContent(string challengerName, string locale)

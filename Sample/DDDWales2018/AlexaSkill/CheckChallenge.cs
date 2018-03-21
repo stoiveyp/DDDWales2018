@@ -69,7 +69,7 @@ namespace AlexaSkill
                 sb.Append(results.OverallWin.Value ? Responses.Win : Responses.Loss);
             }
 
-            return ResponseBuilder.Tell(sb);
+            return ResponseBuilder.Tell(sb.ToString());
         }
 
 
