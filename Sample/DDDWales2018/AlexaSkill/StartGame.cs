@@ -25,8 +25,39 @@ namespace AlexaSkill
                 return response;
             }
 
-            await CreateGame(userId, intent);
+            var opponentUserId = await CreateGame(userId, intent);
+            await SendMessageTo(opponentUserId, "yourself");
             return ResponseBuilder.Tell(Responses.GameCreated);
+        }
+
+        private static async Task SendMessageTo(string opponentUserId, string challengerName)
+        {
+            var oauthToken = await GetOAuthToken();
+
+            var payload = new Dictionary<string, string> { { "from", challengerName } };
+
+            var messages = new SkillMessageClient(SkillMessageClient.EuropeEndpoint, oauthToken);
+            var messageToSend = new Alexa.NET.SkillMessaging.Message(payload, 300);
+
+            await messages.Send(messageToSend, opponentUserId);
+        }
+
+        private static async Task<string> GetOAuthToken()
+        {
+            var clientId = Environment.GetEnvironmentVariable("clientid");
+            var clientSecret = Environment.GetEnvironmentVariable("clientsecret");
+
+            if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret))
+            {
+                throw new InvalidOperationException("invalid oauth creds");
+            }
+
+            Console.WriteLine($"client id: {clientId}");
+            Console.WriteLine($"client secret: {clientSecret.Substring(0,3)}...{clientSecret.Substring(clientSecret.Length-3)}");
+
+            var client = new AccessTokenClient(AccessTokenClient.ApiDomainBaseAddress);
+            var accessToken = await client.Send(clientId, clientSecret);
+            return accessToken.Token;
         }
 
         private static SkillResponse ValidateNewGame(SkillRequest request, Intent intent)
