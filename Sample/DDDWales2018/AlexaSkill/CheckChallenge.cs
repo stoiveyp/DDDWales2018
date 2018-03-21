@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
@@ -42,15 +43,44 @@ namespace AlexaSkill
                 return ResponseBuilder.DialogDelegate(request.Session, intent);
             }
 
-            return await CompleteGame(nextChallenge,userId,intent);
+            var results = await CompleteGame(nextChallenge,userId,intent);
+            return VoiceResults(results);
         }
 
-        private static async Task<SkillResponse> CompleteGame(string nextChallenge,string userId, Intent intent)
+        private static bool ConfirmedChallenge(Intent intent)
+        {
+            return intent.Slots[SlotNames.Opponent].ConfirmationStatus == ConfirmationStatus.Confirmed;
+        }
+
+        private static SkillResponse VoiceResults(Results results)
+        {
+            var sb = new StringBuilder("Here are the results");
+            foreach (var result in results.ResultInformation)
+            {
+                sb.Append($"Your {result.You} {result.Description} their {result.Them}.");
+            }
+
+            if (!results.OverallWin.HasValue)
+            {
+                sb.Append(Responses.Draw);
+            }
+            else
+            {
+                sb.Append(results.OverallWin.Value ? Responses.Win : Responses.Loss);
+            }
+
+            return ResponseBuilder.Tell(sb);
+        }
+
+
+        private static async Task<Results> CompleteGame(string nextChallenge,string userId, Intent intent)
         {
             var bucket = Environment.GetEnvironmentVariable("bucket");
+
             var s3 = new AmazonS3Client();
             var result = await s3.GetObjectAsync(bucket, nextChallenge);
             var game = new JsonSerializer().Deserialize<Game>(result.ResponseStream);
+
             game.Player2.UserId = userId;
             game.Player2.MoveInformation = new List<Move>
             {
@@ -60,17 +90,7 @@ namespace AlexaSkill
             };
 
             await s3.DeleteObjectAsync(bucket, nextChallenge);
-            return GameResults(game);
-        }
-
-        private static SkillResponse GameResults(Game game)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static bool ConfirmedChallenge(Intent intent)
-        {
-            return intent.Slots[SlotNames.Opponent].ConfirmationStatus == ConfirmationStatus.Confirmed;
+            return game.ResultsFor(userId);
         }
 
         private static bool MovesRemaining(Intent intent)
