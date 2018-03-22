@@ -54,7 +54,9 @@ namespace AlexaSkill
                 case IntentNames.CheckChallenges:
                     return CheckChallenge.Handle(request, intent);
                 case IntentNames.Moves:
-                    return Task.FromResult(ResponseBuilder.Tell(Responses.Moves));
+                    return MoveInfo.Handle();
+                case IntentNames.DebugResults:
+                    return DebugResults.Handle(request, intent);
             }
 
             return null;
