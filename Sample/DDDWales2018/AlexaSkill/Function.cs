@@ -1,27 +1,66 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
+using Alexa.NET;
+using Alexa.NET.Request;
+using Alexa.NET.Request.Type;
+using Alexa.NET.Response;
+using Alexa.NET.SkillMessaging;
 using Amazon.Lambda.Core;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
 namespace AlexaSkill
 {
+
     public class Function
     {
-        
-        /// <summary>
-        /// A simple function that takes a string and does a ToUpper
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public string FunctionHandler(string input, ILambdaContext context)
+        public Function()
         {
-            return input?.ToUpper();
+            RequestConverter.RequestConverters.Add(new MessageReceivedRequestTypeConverter());
         }
+
+
+        public async Task<SkillResponse> FunctionHandler(SkillRequest input, ILambdaContext context)
+        {
+            Console.WriteLine("Received Request Type: " + input.Request.Type);
+            switch (input.Request)
+            {
+                case LaunchRequest _:
+                    return ResponseBuilder.Ask(Responses.Welcome, null);
+                case IntentRequest intentRequest:
+                    var intentResponse = await HandleIntent(input, intentRequest.Intent);
+                    if (intentResponse != null)
+                    {
+                        return intentResponse;
+                    }
+                    break;
+                case MessageReceivedRequest message:
+                    await GameNotification.Send(input, message);
+                    return ResponseBuilder.Empty();
+            }
+
+            return ResponseBuilder.Ask("Sorry, didn't understand a word. Please try that again", null);
+        }
+
+        private Task<SkillResponse> HandleIntent(SkillRequest request, Intent intent)
+        {
+            switch (intent.Name)
+            {
+                case BuiltInIntent.Stop:
+                case BuiltInIntent.Cancel:
+                    return CloseGame.Handle();
+                case IntentNames.StartGame:
+                    return StartGame.Handle(request, intent);
+                case IntentNames.CheckChallenges:
+                    return CheckChallenge.Handle(request, intent);
+                case IntentNames.Moves:
+                    return MoveInfo.Handle();
+                case IntentNames.DebugResults:
+                    return DebugResults.Handle(request, intent);
+            }
+
+            return null;
+        }
+
     }
 }

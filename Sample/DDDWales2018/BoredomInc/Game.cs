@@ -9,8 +9,8 @@ namespace BoredomInc
 {
     public class Game
     {
-        public Moves Player1 { get; }
-        public Moves Player2 { get; }
+        public Moves Player1 { get; set; }
+        public Moves Player2 { get; set; }
 
         public Results ResultsFor(string userid)
         {
