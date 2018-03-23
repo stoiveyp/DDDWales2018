@@ -7,17 +7,12 @@ namespace AlexaSkill
 {
     public static class Responses
     {
-        public static Speech Welcome = new Speech{
-                Elements = new List<ISsml>
-                {
-                    new Paragraph{
-                        Elements = new List<IParagraphSsml>{
-                            new PlainText("Welcome to"),
-                            new Prosody{Rate = ProsodyRate.Fast,Elements = new List<ISsml>{new Sentence("rock paper scissors lizard spock") }},
-                            new Sentence("Do you want to start a game or check your challenges?")
-                    }
-                }
-        }};
+        public static Speech Welcome = new Speech(
+            new Paragraph(
+                new PlainText("Welcome to"),
+                new Prosody(new Sentence("rock paper scissors lizard spock")) { Rate = ProsodyRate.Fast },
+                new Sentence("Do you want to start a game or check your challenges?")
+            ));
 
         public const string Draw = "It's a draw, maybe you'll get the upper hand next time";
         public const string Win = "You won! Well done. Hope you have another game soon";
@@ -44,7 +39,7 @@ Rock crushes Scissors";
 
         public static IOutputSpeech NextChallenger(string nextOpponent)
         {
-            return new PlainTextOutputSpeech{Text=$"Your next challenger is {nextOpponent}, do you accept the challenge?"};
+            return new PlainTextOutputSpeech { Text = $"Your next challenger is {nextOpponent}, do you accept the challenge?" };
         }
     }
 }
