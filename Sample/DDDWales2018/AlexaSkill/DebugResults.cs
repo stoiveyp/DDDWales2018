@@ -47,7 +47,7 @@ namespace AlexaSkill
 
             var results = fakeGame.ResultsFor("fake1");
             return Task.FromResult(
-                ResponseBuilder.Tell(Responses.Results(results))
+                ResponseBuilder.Tell(Responses.EmotiveResults(results))
                 );
         }
     }
