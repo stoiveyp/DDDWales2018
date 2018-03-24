@@ -14,19 +14,13 @@ namespace AlexaSkill
 
     public class Function
     {
-        public Function()
-        {
-            RequestConverter.RequestConverters.Add(new MessageReceivedRequestTypeConverter());
-        }
-
-
         public async Task<SkillResponse> FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-            Console.WriteLine("Received Request Type: " + input.Request.Type);
             switch (input.Request)
             {
                 case LaunchRequest _:
                     return ResponseBuilder.Ask(Responses.Welcome, null);
+
                 case IntentRequest intentRequest:
                     var intentResponse = await HandleIntent(input, intentRequest.Intent);
                     if (intentResponse != null)
@@ -34,9 +28,7 @@ namespace AlexaSkill
                         return intentResponse;
                     }
                     break;
-                case MessageReceivedRequest message:
-                    await GameNotification.Send(input, message);
-                    return ResponseBuilder.Empty();
+
             }
 
             return ResponseBuilder.Ask("Sorry, didn't understand a word. Please try that again", null);

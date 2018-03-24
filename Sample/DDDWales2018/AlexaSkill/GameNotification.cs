@@ -17,26 +17,23 @@ namespace AlexaSkill
             var challengerName = message.Message["from"];
             var notification = new NotificationClient(NotificationClient.EuropeEndpoint, token);
 
-            var display = new DisplayInfo
-            {
-                Content = new List<DisplayContent>
-                {
-                    DisplayContent(challengerName,"en-US"),
-                    DisplayContent(challengerName,"en-GB")
-                }
-            };
-            var spoken = new SpokenInfo
-            {
-                Content = new List<SpokenText>
-                {
-                    new SpokenText("en-US","You've a new game of rock paper scissors lizard spock"),
-                    new SpokenText("en-GB","You've a new game of rock paper scissors lizard spock")
-                }
-            };
+            var display = new DisplayInfo { Content = new List<DisplayContent>() };
+            var spoken = new SpokenInfo { Content = new List<SpokenText>() };
+
+            AddNotificationTo(display, spoken, challengerName, "en-US");
+            AddNotificationTo(display, spoken, challengerName, "en-GB");
+
             var reference = Guid.NewGuid().ToString("N");
             var expiry = DateTime.Now.AddSeconds(30);
 
             return notification.Create(display, spoken, reference, expiry);
+        }
+
+        private static void AddNotificationTo(DisplayInfo display, SpokenInfo spoken, string challengerName,
+            string locale)
+        {
+            display.Content.Add(DisplayContent(challengerName, locale));
+            spoken.Content.Add(new SpokenText("en-US", "You've a new game of rock paper scissors lizard spock"));
         }
 
         private static DisplayContent DisplayContent(string challengerName, string locale)

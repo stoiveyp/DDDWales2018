@@ -26,7 +26,7 @@ namespace AlexaSkill
             }
 
             var opponentUserId = await CreateGame(userId, intent);
-            await SendMessageTo(opponentUserId, "yourself");
+            //await SendMessageTo(opponentUserId, "yourself");
             return ResponseBuilder.Tell(Responses.GameCreated);
         }
 
@@ -51,9 +51,6 @@ namespace AlexaSkill
             {
                 throw new InvalidOperationException("invalid oauth creds");
             }
-
-            Console.WriteLine($"client id: {clientId}");
-            Console.WriteLine($"client secret: {clientSecret.Substring(0,3)}...{clientSecret.Substring(clientSecret.Length-3)}");
 
             var client = new AccessTokenClient(AccessTokenClient.ApiDomainBaseAddress);
             var accessToken = await client.Send(clientId, clientSecret);
@@ -104,9 +101,6 @@ namespace AlexaSkill
             var key = $"challenge_{opponent}_{challenger}";
             var s3 = new AmazonS3Client();
 
-            
-            Console.WriteLine($"{bucket}");
-            Console.WriteLine($"{key}");
             var putRequest = new PutObjectRequest
             {
                 BucketName = bucket,
