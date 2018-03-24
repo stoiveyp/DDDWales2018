@@ -22,7 +22,6 @@ namespace NoTone
 
         private Results GetResults(Moves currentUser, Moves opposition)
         {
-            var results = new List<Result>();
             return new Results(currentUser.MoveInformation.Select((m, i) => CalculateResult(m, opposition.MoveInformation[i])));
         }
 
@@ -87,18 +86,18 @@ namespace NoTone
 
         private string LoseDescription(Move them, Move you)
         {
-            switch (you)
+            switch (them)
             {
                 case Move.Rock:
                     return "is crushed by";
                 case Move.Paper:
-                    return them == Move.Spock ? "is totally disproved" : "is wrapped up in";
+                    return you == Move.Spock ? "is totally disproved" : "is wrapped up in";
                 case Move.Scissors:
-                    return them == Move.Paper ? "is sliced by" : "has its head brutally removed by";
+                    return you == Move.Paper ? "is sliced by" : "has its head brutally removed by";
                 case Move.Lizard:
-                    return them == Move.Paper ? "is chewed up by" : "scurries in and poisons";
+                    return you == Move.Paper ? "is chewed up by" : "scurries in and poisons";
                 case Move.Spock:
-                    return them == Move.Scissors ? "are smashed by" : "is vaporised by";
+                    return you == Move.Scissors ? "are smashed by" : "is vaporised by";
             }
 
             throw new InvalidOperationException("invalid to lose with this");

@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 using System.Text;
 using Alexa.NET;
 using Alexa.NET.Response;
 using Alexa.NET.Response.Ssml;
+using Alexa.NET.Response.Ssml.SoundLibrary;
 using NoTone;
 
 namespace AlexaSkill
@@ -55,14 +57,78 @@ Rock crushes Scissors";
 
             if (!results.OverallWin.HasValue)
             {
-                sb.Append(Responses.Draw);
+                sb.Append(Draw);
             }
             else
             {
-                sb.Append(results.OverallWin.Value ? Responses.Win : Responses.Loss);
+                sb.Append(results.OverallWin.Value ? Win : Loss);
             }
 
             return sb.ToString();
+        }
+
+        public static Speech EmotiveResults(Results results)
+        {
+            var speech = new Speech();
+            speech.Elements.Add(new Paragraph(new Sentence("Here are the results")));
+
+            foreach (var result in results.ResultInformation)
+            {
+                var moveResult = new Paragraph(
+                    new Sentence($"Your {result.You}"),
+                    new Break { Strength = BreakStrength.Strong},
+                    new Emphasis(result.Description),
+                    new Sentence($"their { result.Them }")
+                    
+                    );
+                speech.Elements.Add(moveResult);
+
+                if (result.Win.HasValue)
+                {
+                    speech.Elements.Add(result.Win.Value ? WinEmotion() : LoseEmotion());
+                }
+
+            }
+
+            if (!results.OverallWin.HasValue)
+            {
+                speech.Elements.Add(new Sentence(Draw));
+            }
+            else if(results.OverallWin.Value)
+            {
+                speech.Elements.Add(new Sentence(Win));
+                speech.Elements.Add(WinEmotion());
+            }
+            else
+            {
+                speech.Elements.Add(new Sentence(Loss));
+                speech.Elements.Add(LoseEmotion());
+            }
+
+            return speech;
+        }
+
+        private static readonly Audio[] WinEmotions = {
+            Human.CrowdApplause01,
+            Human.CrowdApplause02,
+            Human.CrowdApplause03,
+            Human.CrowdApplause04,
+            Human.CrowdApplause05
+        };
+
+        private static readonly Audio[] LoseEmotions = {
+            Human.CrowdBoo01,
+            Human.CrowdBoo02,
+            Human.CrowdBoo03
+        };
+        private static Audio WinEmotion()
+        {
+            return WinEmotions[new Random().Next(0, WinEmotions.Length - 1)];
+        }
+
+        private static Audio LoseEmotion()
+        {
+            return LoseEmotions[new Random().Next(0, WinEmotions.Length - 1)];
         }
     }
 }

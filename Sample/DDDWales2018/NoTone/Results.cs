@@ -24,7 +24,7 @@ namespace NoTone
                     return null;
                 }
 
-                return wins > Math.Ceiling((double) ResultInformation.Count / 2);
+                return wins > (double) ResultInformation.Count / 2;
             }
         }
     }
