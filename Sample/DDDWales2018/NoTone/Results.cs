@@ -24,7 +24,7 @@ namespace NoTone
                     return null;
                 }
 
-                return wins > (double) ResultInformation.Count / 2;
+                return wins > (double) ResultInformation.Count(r => r.Win.HasValue) / 2;
             }
         }
     }

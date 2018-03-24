@@ -42,7 +42,7 @@ Rock crushes Scissors";
 
 
         public const String Welcome =
-            "Welcome to rock paper scissors lizard spock. Do you want to start a game or check your challenges?";
+            "Welcome to rock, paper, scissors, lizard, spock. Do you want to start a game or check your challenges?";
 
         public static string Results(Results results)
         {
@@ -118,14 +118,17 @@ Rock crushes Scissors";
             Human.CrowdBoo02,
             Human.CrowdBoo03
         };
+
+        private static Random Rnd = new Random();
+
         private static Audio WinEmotion()
         {
-            return WinEmotions[new Random().Next(0, WinEmotions.Length - 1)];
+            return WinEmotions[Rnd.Next(0, WinEmotions.Length - 1)];
         }
 
         private static Audio LoseEmotion()
         {
-            return LoseEmotions[new Random().Next(0, WinEmotions.Length - 1)];
+            return LoseEmotions[Rnd.Next(0, WinEmotions.Length - 1)];
         }
     }
 }
