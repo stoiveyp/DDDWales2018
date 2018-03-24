@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoTone", "BoredomInc\NoTone
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaSkill", "AlexaSkill\AlexaSkill.csproj", "{4CEDA429-1833-490A-AADD-24AFE2213E38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPSLSConsole", "RPSLSConsole\RPSLSConsole.csproj", "{FB8D4875-92C8-42C3-BE93-5F10511EFACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

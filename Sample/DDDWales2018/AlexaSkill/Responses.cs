@@ -76,8 +76,9 @@ Rock crushes Scissors";
             {
                 var moveResult = new Paragraph(
                     new Sentence($"Your {result.You}"),
-                    new Break { Time = "2s" },
-                    new Prosody(new Sentence($"{result.Description} their {result.Them}.")) { Rate = ProsodyRate.Fast }
+                    new Break { Strength = BreakStrength.Strong},
+                    new Emphasis(result.Description),
+                    new Sentence($"their { result.Them }")
                     
                     );
                 speech.Elements.Add(moveResult);
@@ -93,9 +94,15 @@ Rock crushes Scissors";
             {
                 speech.Elements.Add(new Sentence(Draw));
             }
+            else if(results.OverallWin.Value)
+            {
+                speech.Elements.Add(new Sentence(Win));
+                speech.Elements.Add(WinEmotion());
+            }
             else
             {
-                speech.Elements.Add(new Sentence(results.OverallWin.Value ? Win : Loss));
+                speech.Elements.Add(new Sentence(Loss));
+                speech.Elements.Add(LoseEmotion());
             }
 
             return speech;
