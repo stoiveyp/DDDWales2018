@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Alexa.NET.Request;
-using BoredomInc;
+using NoTone;
 
 namespace AlexaSkill
 {

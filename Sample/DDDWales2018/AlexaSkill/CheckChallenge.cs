@@ -9,7 +9,7 @@ using Alexa.NET.Response;
 using Alexa.NET.Response.Directive;
 using Amazon.Lambda.Serialization.Json;
 using Amazon.S3;
-using BoredomInc;
+using NoTone;
 
 namespace AlexaSkill
 {

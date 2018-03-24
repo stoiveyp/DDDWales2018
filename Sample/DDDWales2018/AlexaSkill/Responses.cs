@@ -4,7 +4,7 @@ using System.Text;
 using Alexa.NET;
 using Alexa.NET.Response;
 using Alexa.NET.Response.Ssml;
-using BoredomInc;
+using NoTone;
 
 namespace AlexaSkill
 {

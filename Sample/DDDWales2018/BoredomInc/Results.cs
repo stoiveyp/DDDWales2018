@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BoredomInc
+namespace NoTone
 {
     public class Results
     {
