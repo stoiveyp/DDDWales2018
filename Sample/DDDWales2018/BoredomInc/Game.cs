@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
-namespace BoredomInc
+namespace NoTone
 {
     public class Game
     {

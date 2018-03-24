@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27421.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoredomInc", "BoredomInc\BoredomInc.csproj", "{9DC4150E-8092-41F3-9C2A-21201C665E73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoTone", "BoredomInc\NoTone.csproj", "{9DC4150E-8092-41F3-9C2A-21201C665E73}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaSkill", "AlexaSkill\AlexaSkill.csproj", "{4CEDA429-1833-490A-AADD-24AFE2213E38}"
 EndProject

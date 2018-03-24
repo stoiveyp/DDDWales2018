@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoredomInc\BoredomInc.csproj" />
+    <ProjectReference Include="..\BoredomInc\NoTone.csproj" />
   </ItemGroup>
 
 </Project>

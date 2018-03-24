@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Alexa.NET;
 using Alexa.NET.Request;
 using Alexa.NET.Response;
-using BoredomInc;
+using NoTone;
 
 namespace AlexaSkill
 {
