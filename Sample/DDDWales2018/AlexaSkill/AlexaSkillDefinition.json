@@ -1,0 +1,549 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "developer wales",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "StartGame",
+                    "slots": [
+                        {
+                            "name": "opponent",
+                            "type": "AMAZON.GB_FIRST_NAME",
+                            "samples": [
+                                "I'll challenge {opponent}",
+                                "I'll play {opponent}",
+                                "{opponent}"
+                            ]
+                        },
+                        {
+                            "name": "moveOne",
+                            "type": "move",
+                            "samples": [
+                                "{moveOne} {moveTwo}",
+                                "{moveOne}",
+                                "{moveOne} {moveTwo} and {moveThree}"
+                            ]
+                        },
+                        {
+                            "name": "moveTwo",
+                            "type": "move",
+                            "samples": [
+                                "{moveTwo} {moveThree}",
+                                "{moveTwo}"
+                            ]
+                        },
+                        {
+                            "name": "moveThree",
+                            "type": "move",
+                            "samples": [
+                                "{moveThree}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "new game",
+                        "start a game",
+                        "begin a game",
+                        "create a game"
+                    ]
+                },
+                {
+                    "name": "CheckChallenges",
+                    "slots": [
+                        {
+                            "name": "opponent",
+                            "type": "AMAZON.GB_FIRST_NAME"
+                        },
+                        {
+                            "name": "moveOne",
+                            "type": "move",
+                            "samples": [
+                                "{moveOne} {moveTwo} {moveThree}",
+                                "{moveOne}"
+                            ]
+                        },
+                        {
+                            "name": "moveTwo",
+                            "type": "move",
+                            "samples": [
+                                "{moveTwo}"
+                            ]
+                        },
+                        {
+                            "name": "moveThree",
+                            "type": "move"
+                        }
+                    ],
+                    "samples": [
+                        "any new challenges",
+                        "check my challenges",
+                        "check challenges"
+                    ]
+                },
+                {
+                    "name": "MoveInformation",
+                    "slots": [],
+                    "samples": [
+                        "how do I use spock",
+                        "how do I use lizard",
+                        "how does it work",
+                        "what are the moves"
+                    ]
+                },
+                {
+                    "name": "DebugResults",
+                    "slots": [
+                        {
+                            "name": "playerOneOne",
+                            "type": "move",
+                            "samples": [
+                                "{playerOneOne} {playerOneTwo}",
+                                "{playerOneOne}",
+                                "{playerOneOne} {playerOneTwo} {playerOneThree}"
+                            ]
+                        },
+                        {
+                            "name": "playerOneTwo",
+                            "type": "move",
+                            "samples": [
+                                "{playerOneTwo}"
+                            ]
+                        },
+                        {
+                            "name": "playerOneThree",
+                            "type": "move",
+                            "samples": [
+                                "{playerOneThree}"
+                            ]
+                        },
+                        {
+                            "name": "playerTwoOne",
+                            "type": "move",
+                            "samples": [
+                                "{playerTwoOne} {playerTwoTwo} {playerTwoThree}",
+                                "{playerTwoOne} {playerTwoTwo}",
+                                "{playerTwoOne}"
+                            ]
+                        },
+                        {
+                            "name": "playerTwoTwo",
+                            "type": "move",
+                            "samples": [
+                                "{playerTwoTwo}"
+                            ]
+                        },
+                        {
+                            "name": "playerTwoThree",
+                            "type": "move",
+                            "samples": [
+                                "{playerTwoThree}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "fake some results",
+                        "lets fake some results",
+                        "just list the results",
+                        "pretend we've played a game",
+                        "fake game results",
+                        "fake some game results"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "move",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "spock"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "lizard"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "scissors"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "paper"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "rock"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "StartGame",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "opponent",
+                            "type": "AMAZON.GB_FIRST_NAME",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.69996053443.949747907211"
+                            }
+                        },
+                        {
+                            "name": "moveOne",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.865911555608.849887763591"
+                            }
+                        },
+                        {
+                            "name": "moveTwo",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.865911555608.1085305663017"
+                            }
+                        },
+                        {
+                            "name": "moveThree",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.865911555608.153055174133"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "CheckChallenges",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "opponent",
+                            "type": "AMAZON.GB_FIRST_NAME",
+                            "confirmationRequired": true,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "confirmation": "Confirm.Slot.4083787760.1254420511218",
+                                "elicitation": "Elicit.Slot.4083787760.1254420511218"
+                            }
+                        },
+                        {
+                            "name": "moveOne",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.333430521127.1150488014892"
+                            }
+                        },
+                        {
+                            "name": "moveTwo",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.333430521127.462938769702"
+                            }
+                        },
+                        {
+                            "name": "moveThree",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.333430521127.161612851782"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "DebugResults",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "playerOneOne",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.507198210818"
+                            }
+                        },
+                        {
+                            "name": "playerOneTwo",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.950865664308"
+                            }
+                        },
+                        {
+                            "name": "playerOneThree",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.481116456736"
+                            }
+                        },
+                        {
+                            "name": "playerTwoOne",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.204421273886"
+                            }
+                        },
+                        {
+                            "name": "playerTwoTwo",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.85946957340"
+                            }
+                        },
+                        {
+                            "name": "playerTwoThree",
+                            "type": "move",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.972871880791.1233636392972"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.865911555608.1376100487667",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "who's your opponent?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "who do you want to play?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.865911555608.849887763591",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "How are you going to play your moves"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "What are your moves?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "what's your first move?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.865911555608.1085305663017",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "thanks, what's your next move?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "and your second move?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.865911555608.153055174133",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "and what's your final move in this game?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.69996053443.949747907211",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "who's your opponent?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "Who are you going to play?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.4083787760.1254420511218",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "we've had trouble finding your opponent's details. Please try again later"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.4083787760.1254420511218",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "You've a challenge from {opponent}, do you wish to continue?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.333430521127.1150488014892",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what moves will you battle with?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "how will you respond?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "what are your moves?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.333430521127.462938769702",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what's your second move?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.333430521127.161612851782",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "and what's your final move?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.507198210818",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what are player one's moves"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "what moves will player one have"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.950865664308",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what about their second move"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "and player one's second move"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.481116456736",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what's their final move"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "and Player one's final move"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.204421273886",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "and what are player two's moves?"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "now how about player two?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.85946957340",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "and player two's second move is"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "what about their second move?"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.972871880791.1233636392972",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "what's their final move"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "and player two's final move"
+                    }
+                ]
+            }
+        ]
+    }
+}
