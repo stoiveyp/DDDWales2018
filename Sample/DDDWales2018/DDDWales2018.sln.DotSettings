@@ -21,4 +21,18 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=783B36E9C38D19459592B0A5EDE7B408/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=783B36E9C38D19459592B0A5EDE7B408/Text/@EntryValue">                case MessageReceivedRequest message:&#xD;
                     await GameNotification.Send(input, message);&#xD;
-                    return ResponseBuilder.Empty();</s:String></wpf:ResourceDictionary>
+                    return ResponseBuilder.Empty();</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Shortcut/@EntryValue">dddWelcomeSsml</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A49BA5A79F11D84D88A18DBB3646E642/Text/@EntryValue">        public static Speech Welcome =&gt; new Speech(&#xD;
+            new Paragraph(&#xD;
+                new PlainText("Welcome to"),&#xD;
+                new Prosody(new PlainText("rock paper scissors lizard spock")) { Rate = ProsodyRate.Fast },&#xD;
+                new Sentence("Do you want to start a game or check your challenges?")&#xD;
+            ));</s:String></wpf:ResourceDictionary>

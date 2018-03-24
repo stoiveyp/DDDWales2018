@@ -40,12 +40,9 @@ Rock crushes Scissors";
             return new PlainTextOutputSpeech { Text = $"Your next challenger is {nextOpponent}, do you accept the challenge?" };
         }
 
-        public static Speech Welcome => new Speech(
-            new Paragraph(
-                new PlainText("Welcome to"),
-                new Prosody(new Sentence("rock paper scissors lizard spock")) { Rate = ProsodyRate.Fast },
-                new Sentence("Do you want to start a game or check your challenges?")
-            ));
+
+        public const String Welcome =
+            "Welcome to rock paper scissors lizard spock. Do you want to start a game or check your challenges?";
 
         public static string Results(Results results)
         {
