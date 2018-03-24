@@ -44,34 +44,13 @@ namespace AlexaSkill
             }
 
             var results = await CompleteGame(nextChallenge,userId,intent);
-            return VoiceResults(results);
+            return ResponseBuilder.Tell(Responses.Results(results));
         }
 
         private static bool ConfirmedChallenge(Intent intent)
         {
             return intent.Slots[SlotNames.Opponent].ConfirmationStatus == ConfirmationStatus.Confirmed;
         }
-
-        private static SkillResponse VoiceResults(Results results)
-        {
-            var sb = new StringBuilder("Here are the results.  ");
-            foreach (var result in results.ResultInformation)
-            {
-                sb.Append($"Your {result.You} {result.Description} their {result.Them}.  ");
-            }
-
-            if (!results.OverallWin.HasValue)
-            {
-                sb.Append(Responses.Draw);
-            }
-            else
-            {
-                sb.Append(results.OverallWin.Value ? Responses.Win : Responses.Loss);
-            }
-
-            return ResponseBuilder.Tell(sb.ToString());
-        }
-
 
         private static async Task<Results> CompleteGame(string nextChallenge,string userId, Intent intent)
         {
@@ -86,9 +65,9 @@ namespace AlexaSkill
                 UserId = userId,
                 MoveInformation = new List<Move>
                 {
-                    ParseMove(intent.Slots[SlotNames.MoveOne].Value),
-                    ParseMove(intent.Slots[SlotNames.MoveTwo].Value),
-                    ParseMove(intent.Slots[SlotNames.MoveThree].Value)
+                    intent.Slots.ParseMove(SlotNames.MoveOne),
+                    intent.Slots.ParseMove(SlotNames.MoveTwo),
+                    intent.Slots.ParseMove(SlotNames.MoveThree)
                 }
             };
 
@@ -126,16 +105,6 @@ namespace AlexaSkill
                 $"challenge_{userId}"
             );
             return objects.S3Objects.Select(o => o.Key).ToList();
-        }
-
-        private static Move ParseMove(string value)
-        {
-            if (Enum.TryParse(value, true, out Move move))
-            {
-                return move;
-            }
-
-            throw new InvalidOperationException("Unknown move type " + value);
         }
     }
 }

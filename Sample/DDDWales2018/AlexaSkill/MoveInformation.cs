@@ -4,7 +4,7 @@ using Alexa.NET.Response;
 
 namespace AlexaSkill
 {
-    internal class MoveInfo
+    internal static class MoveInformation
     {
         public static Task<SkillResponse> Handle()
         {
