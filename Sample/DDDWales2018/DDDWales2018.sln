@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27421.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoTone", "BoredomInc\NoTone.csproj", "{9DC4150E-8092-41F3-9C2A-21201C665E73}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlexaSkill", "AlexaSkill\AlexaSkill.csproj", "{4CEDA429-1833-490A-AADD-24AFE2213E38}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPSLSConsole", "RPSLSConsole\RPSLSConsole.csproj", "{FB8D4875-92C8-42C3-BE93-5F10511EFACB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2258139-8F8B-49EA-A2C4-F186E46450D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoTone", "NoTone\NoTone.csproj", "{74A89FE8-5314-49B1-B279-720099E120CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9DC4150E-8092-41F3-9C2A-21201C665E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DC4150E-8092-41F3-9C2A-21201C665E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DC4150E-8092-41F3-9C2A-21201C665E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DC4150E-8092-41F3-9C2A-21201C665E73}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEDA429-1833-490A-AADD-24AFE2213E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +25,10 @@ Global
 		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8D4875-92C8-42C3-BE93-5F10511EFACB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A89FE8-5314-49B1-B279-720099E120CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A89FE8-5314-49B1-B279-720099E120CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A89FE8-5314-49B1-B279-720099E120CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A89FE8-5314-49B1-B279-720099E120CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

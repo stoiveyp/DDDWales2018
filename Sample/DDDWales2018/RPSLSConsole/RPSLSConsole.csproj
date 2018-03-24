@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BoredomInc\NoTone.csproj" />
+    <ProjectReference Include="..\NoTone\NoTone.csproj" />
   </ItemGroup>
 
 </Project>
